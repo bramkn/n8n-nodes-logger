@@ -34,7 +34,7 @@ export class Logger implements INodeType {
 				description: 'ID of the Logger workflow',
 			},
 			{
-				displayName: 'Data to be sent to the logger',
+				displayName: 'Data to Be Sent to the Logger',
 				name: 'dataMode',
 				type: 'options',
 				options:[
@@ -47,12 +47,12 @@ export class Logger implements INodeType {
 						value:'allItems'
 					},
 					{
-						name:'1 Item with aggregated Item Values Array',
+						name: '1 Item with Aggregated Item Values Array',
 						value:'oneItemWithArray'
 					},
 				],
-				default: '',
-				description: 'Choose between modes of operation for the logger when sending items.',
+				default: 'firstItem',
+				description: 'Choose between modes of operation for the logger when sending items',
 			},
 			{
 				displayName: 'Values to Log',
