@@ -37,6 +37,8 @@ Developed and tested using n8n version 0.221.2
 
 You need to set the workflow ID of the logger workflow, select the data to be sent, and you can also set extra values to be sent to the Logger workflow.
 
+Note: not all screenshots are made with the latest version of the node. So things might have changed in the node you are actually going to be using.
+
 ![Overview](https://github.com/bramkn/n8n-nodes-logger/blob/master/img/nodeOverview.png)
 
 ### Data coming into the node will also be output
