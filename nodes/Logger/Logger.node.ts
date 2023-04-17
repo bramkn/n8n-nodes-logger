@@ -47,7 +47,7 @@ export class Logger implements INodeType {
 						value:'allItems'
 					},
 					{
-						name:'1 Item with aggregated Item Value Arrays',
+						name:'1 Item with aggregated Item Values Array',
 						value:'oneItemWithArray'
 					},
 				],

@@ -39,11 +39,21 @@ You need to set the workflow ID of the logger workflow, select the data to be se
 
 ![Overview](https://github.com/bramkn/n8n-nodes-logger/blob/master/img/nodeOverview.png)
 
+### Data coming into the node will also be output
+
 ![InputOutput](https://github.com/bramkn/n8n-nodes-logger/blob/master/img/inputOutput.png)
 
-![itemArray](https://github.com/bramkn/n8n-nodes-logger/blob/master/img/firstItem.png)
+### Data sent to the logger workflow options:
 
-![itemArray](https://github.com/bramkn/n8n-nodes-logger/blob/master/img/allItems.png)
+#### First Item
+
+![firstitem](https://github.com/bramkn/n8n-nodes-logger/blob/master/img/firstItem.png)
+
+#### All Items
+
+![allitems](https://github.com/bramkn/n8n-nodes-logger/blob/master/img/allItems.png)
+
+#### 1 Item With Aggregated Item Values Array
 
 ![itemArray](https://github.com/bramkn/n8n-nodes-logger/blob/master/img/itemArray.png)
 
