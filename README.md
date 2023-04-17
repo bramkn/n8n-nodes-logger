@@ -63,7 +63,7 @@ You need to set the workflow ID of the logger workflow, select the data to be se
 
 ## Version history
 
-v1.0 - first version
-v1.1 - in Development, will be available when getExecutionId is available.
+* v1.0 - first version
+* v1.1 - in Development, will be available when getExecutionId is available.
 
 
