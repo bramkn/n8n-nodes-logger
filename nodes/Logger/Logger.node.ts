@@ -1,5 +1,6 @@
 import { IExecuteFunctions} from 'n8n-core';
 import {
+	IDataObject,
 	IExecuteWorkflowInfo,
 	INodeExecutionData,
 	INodeType,
@@ -7,12 +8,15 @@ import {
 	NodeOperationError,
 } from 'n8n-workflow';
 
+import { DateTime } from 'luxon';
+
 export class Logger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Logger',
 		name: 'logger',
 		group: ['transform'],
 		version: 1,
+		icon: 'file:log.svg',
 		description: 'Logger Node to start a Logger Workflow',
 		defaults: {
 			name: 'Logger',
@@ -30,8 +34,8 @@ export class Logger implements INodeType {
 				description: 'ID of the Logger workflow',
 			},
 			{
-				displayName: 'Items to be sent to the logger',
-				name: 'itemsMode',
+				displayName: 'Data to be sent to the logger',
+				name: 'dataMode',
 				type: 'options',
 				options:[
 					{
@@ -98,16 +102,59 @@ export class Logger implements INodeType {
 			try {
 				const workflowInfo: IExecuteWorkflowInfo = {};
 				workflowInfo.id = this.getNodeParameter('workflowId', 0) as string;
+				const dataMode = this.getNodeParameter('dataMode', 0) as string;
 				const workflowData = this.getWorkflow();
-				const executionData = this.getExecuteData();
-				console.log(executionData)
-				const loggingData = [{json:{
+
+				let loggerInput:INodeExecutionData[] = [];
+				const loggingData:IDataObject = {
+					timeStamp: DateTime.now().toISO(),
 					workflowId : workflowData.id,
 					workflowName : workflowData.name,
 					workflowIsActive : workflowData.active
-				}}];
-				console.log('execute logger workflow');
-				await this.executeWorkflow(workflowInfo, loggingData);
+				};
+
+
+				if(dataMode ==='firstItem'){
+
+					const logValuesParam = this.getNodeParameter('logValues.logField', 0) as IDataObject[];
+					const data:IDataObject ={};
+					for (const param of logValuesParam) {
+						data[`${param.name}`] = param.value;
+					}
+
+					loggerInput.push({json:{...loggingData,itemIndex:0,data}});
+
+				}
+				if(dataMode ==='allItems'){
+					for(let i = 0; i<items.length; i++){
+						const logValuesParam = this.getNodeParameter('logValues.logField', i,[]) as IDataObject[];
+						const data:IDataObject ={};
+
+						for (const param of logValuesParam) {
+							data[`${param.name}`] = param.value;
+						}
+
+						loggerInput.push({json:{...loggingData,itemIndex:i,data}});
+					}
+				}
+
+				if(dataMode ==='oneItemWithArray'){
+					const dataArray:IDataObject[] = []
+					for(let i = 0; i<items.length; i++){
+						const logValuesParam = this.getNodeParameter('logValues.logField', i,[]) as IDataObject[];
+						const data:IDataObject ={};
+						data.itemIndex = i;
+						for (const param of logValuesParam) {
+							data[`${param.name}`] = param.value;
+						}
+						dataArray.push(data);
+					}
+
+					loggerInput.push({json:{...loggingData,itemIndex:0,data:dataArray}});
+				}
+
+
+				await this.executeWorkflow(workflowInfo, loggerInput);
 			}
 			catch (error) {
 				throw new NodeOperationError(this.getNode(), error, {
