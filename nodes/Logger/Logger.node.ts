@@ -1,6 +1,6 @@
-import { IExecuteFunctions} from 'n8n-core';
 import {
 	IDataObject,
+	IExecuteFunctions,
 	IExecuteWorkflowInfo,
 	INodeExecutionData,
 	INodeType,
@@ -97,20 +97,21 @@ export class Logger implements INodeType {
 	// You can make async calls and use `await`.
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
-		//const executionId = this.getExecutionId();
 
 			try {
 				const workflowInfo: IExecuteWorkflowInfo = {};
 				workflowInfo.id = this.getNodeParameter('workflowId', 0) as string;
 				const dataMode = this.getNodeParameter('dataMode', 0) as string;
 				const workflowData = this.getWorkflow();
+				const executionId = this.getExecutionId();
 
 				let loggerInput:INodeExecutionData[] = [];
 				const loggingData:IDataObject = {
 					timeStamp: DateTime.now().toISO(),
 					workflowId : workflowData.id,
 					workflowName : workflowData.name,
-					workflowIsActive : workflowData.active
+					workflowIsActive : workflowData.active,
+					executionId : executionId
 				};
 
 
