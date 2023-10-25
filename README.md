@@ -65,4 +65,4 @@ Note: not all screenshots are made with the latest version of the node. So thing
 ## Version history
 
 * v1.0 - first version
-* v1.1 - in Development, will be available when getExecutionId is available.
+* v1.1 - done
