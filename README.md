@@ -3,7 +3,6 @@
 This is an n8n community node. It lets you execute a logger workflow which you can configure however you want.
 After the logger is done, it will automatically continue the flow without altering the incomming data.
 
-
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
 ## Developer
@@ -67,5 +66,3 @@ Note: not all screenshots are made with the latest version of the node. So thing
 
 * v1.0 - first version
 * v1.1 - in Development, will be available when getExecutionId is available.
-
-
