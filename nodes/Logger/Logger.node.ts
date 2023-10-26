@@ -55,6 +55,13 @@ export class Logger implements INodeType {
 				description: 'Choose between modes of operation for the logger when sending items',
 			},
 			{
+				displayName: 'Return Data From SubFlow',
+				name: 'returnDataFromSubFlow',
+				type: 'boolean',
+				default: false,
+				description: 'Whether or not to return the data from the subflow, by default continue with data from mainflow',
+			},
+			{
 				displayName: 'Values to Log',
 				name: 'logValues',
 				type: 'fixedCollection',
@@ -155,16 +162,21 @@ export class Logger implements INodeType {
 				}
 
 
-				await this.executeWorkflow(workflowInfo, loggerInput);
+				const workflowResult: INodeExecutionData[][] = await this.executeWorkflow(workflowInfo, loggerInput);
+				const returnDataFromSubFlow = this.getNodeParameter('returnDataFromSubFlow', 0, false) as boolean;
+				if(returnDataFromSubFlow){
+					return workflowResult;
+				}
+				else{
+					return this.prepareOutputData(items);
+				}
 			}
 			catch (error) {
 				throw new NodeOperationError(this.getNode(), error, {
 
 				});
 			}
-
-
-
-		return this.prepareOutputData(items);
 	}
 }
+
+
